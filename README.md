@@ -1,24 +1,27 @@
-## goTo
+## wiki
 
 ---
 
-- 解决vscode ctrl+点击 不能正确处理相对路径的问题
+- 帮助爬取wiki文档并生成mock数据
 
 ## how to use
 
 ---
-1. 
-    - 在index.html 等 引用文件处右键 选择 ”goto“
-    - 如果该引用文件不存在，可在弹出信息中继续点击”创建文件“
 
-2. 
-    - 在资源管理器中，选中被引用的文件，右键选择 “goTo”
-    - 设置webapp路径后，可复制当前选中文件与webapp的相对路径到剪贴板
+1. ctrl+shift+P(linux,windows)/cmd+shift+P(mac) 选择 wiki:config
 
-## update 0.1.1
-- 优化正则表达式
+2. 配置用于登录wiki的username、password,以及wiki网址mainUrl，行如：https://xxxx.xxxx.com
 
-## update 0.1.3
-- 增加在资源管理器中复制相对路径
-- 增加对.ts .vue 文件支持
-- 替换图标
+3. ctrl+shift+P(linux,windows)/cmd+shift+P(mac) 选择 wiki:parse
+
+4. 输入包含接口的页面id，形如：21281103
+
+5. 选择要生成的文件
+
+
+## other config (非必填)
+
+1. mockPath(mock数据路径，默认为：src/test/mock)
+2. ftlPre(wiki中定义的ftl文件前缀，默认为：src/main/webapp/WEB-INF/tmpl)
+3. tddPre(tdd文件路径，默认为：src/test/tdd)
+    

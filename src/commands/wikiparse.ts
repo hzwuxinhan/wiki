@@ -1,15 +1,10 @@
 import * as vscode from 'vscode';
 import * as wikiFactory from 'parsewiki';
-import {
-    getFile,
-    createFile,
-    getFileType
-} from '../pathFactory';
 
 export function activate(context: vscode.ExtensionContext) {
     let wikiparse = vscode.commands.registerCommand('wiki.parse', () => {
 
-        let wikiconfig = vscode.workspace.getConfiguration('wiki.config')
+        let wikiconfig = vscode.workspace.getConfiguration('wiki')
         if (!wikiconfig.username || !wikiconfig.password || !wikiconfig.mainUrl) {
             return vscode.window.showErrorMessage("please config first")
         }
@@ -47,7 +42,15 @@ export function activate(context: vscode.ExtensionContext) {
                         })
                         vscode.window.showQuickPick(items,{ placeHolder: "select item which you want parse", matchOnDescription: true }).then((item)=>{
                             WIKI.getDetail(item.index).then((result)=>{
-                                vscode.window.showInformationMessage(`文件${item.label}创建成功`)
+                                vscode.window.showInformationMessage(`文件${item.label}创建成功`,{
+                                    "title":"查看"
+                                }).then(res=>{
+                                    if(res.title=="查看") {
+                                        vscode.workspace.openTextDocument(result).then((a: vscode.TextDocument) => {
+                                            vscode.window.showTextDocument(a, vscode.ViewColumn.One, true)
+                                        })
+                                    }
+                                })
                             },(e)=>{
                                 console.log(e)
                             })
@@ -58,7 +61,7 @@ export function activate(context: vscode.ExtensionContext) {
                         vscode.window.showErrorMessage("parse error")
                     })
                 },()=>{
-                    vscode.window.showErrorMessage("login failed! please check your username and password")
+                    vscode.window.showErrorMessage("login failed! please check your config of wiki")
                 })
             }
         },(e)=>{

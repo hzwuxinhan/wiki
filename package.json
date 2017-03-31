@@ -11,7 +11,8 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:wiki.parse"
+    "onCommand:wiki.parse",
+    "onCommand:wiki.config"
   ],
   "main": "./out/src/extension",
   "contributes": {
@@ -19,14 +20,37 @@
       {
         "command": "wiki.parse",
         "title": "wiki: parse"
+      },
+      {
+        "command": "wiki.config",
+        "title": "wiki: config"
       }
     ],
     "configuration": {
       "properties": {
-        "wiki.config": {
-          "type": "object",
-          "default": {},
-          "description": "config file for wiki"
+        "wiki.password": {
+          "type": "string",
+          "description": "password for wiki"
+        },
+        "wiki.username": {
+          "type": "string",
+          "description": "username for wiki"
+        },
+        "wiki.mainUrl": {
+          "type": "string",
+          "description": "domain of wiki like:https://test.wiki.com"
+        },
+        "wiki.mockPath": {
+          "type": "string",
+          "description": "folder path for mock file,has default value:\"src/test/mock\""
+        },
+        "wiki.ftlPre": {
+          "type": "string",
+          "description": "prefix of ftl in wiki, has default value:\"src/main/webapp/WEB-INF/tmpl\""
+        },
+        "wiki.tddPre": {
+          "type": "string",
+          "description": "prefix of tdd in wiki, has default value:\"src/test/tdd\""
         }
       },
       "title": "wiki Configuration Settings"
@@ -47,6 +71,6 @@
   },
   "icon": "icon.jpg",
   "dependencies": {
-    "parsewiki": "^1.1.4"
+    "parsewiki": "^1.1.5"
   }
 }
