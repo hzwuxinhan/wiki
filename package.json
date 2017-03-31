@@ -2,7 +2,7 @@
   "name": "wiki",
   "displayName": "wiki",
   "description": "parse wiki from web and create mock file",
-  "version": "0.0.2",
+  "version": "0.0.6",
   "publisher": "hzwuxinhan",
   "engines": {
     "vscode": "^1.10.0"
@@ -11,18 +11,16 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:wiki.parse",
-    "onCommand:wiki.config"
+    "*"
   ],
   "main": "./out/src/extension",
   "contributes": {
-    "commands": [
-      {
-        "command": "wiki.parse",
+    "commands": [{
+        "command": "extension.wikiparse",
         "title": "wiki: parse"
       },
       {
-        "command": "wiki.config",
+        "command": "extension.wikiconfig",
         "title": "wiki: config"
       }
     ],
@@ -69,7 +67,7 @@
     "@types/node": "^6.0.40",
     "@types/mocha": "^2.2.32"
   },
-  "icon": "icon.jpg",
+  "icon": "icon.png",
   "dependencies": {
     "parsewiki": "^1.1.5"
   }

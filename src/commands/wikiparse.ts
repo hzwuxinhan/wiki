@@ -2,9 +2,9 @@ import * as vscode from 'vscode';
 import * as wikiFactory from 'parsewiki';
 
 export function activate(context: vscode.ExtensionContext) {
-    let wikiparse = vscode.commands.registerCommand('wiki.parse', () => {
+    let wikiparse = vscode.commands.registerCommand('extension.wikiparse', () => {
 
-        let wikiconfig = vscode.workspace.getConfiguration('wiki')
+        let wikiconfig = vscode.workspace.getConfiguration('wiki');
         if (!wikiconfig.username || !wikiconfig.password || !wikiconfig.mainUrl) {
             return vscode.window.showErrorMessage("please config first")
         }
@@ -32,7 +32,7 @@ export function activate(context: vscode.ExtensionContext) {
                 WIKI.login().then(()=>{
                     WIKI.getPaths().then(datas=>{
                         if(!datas.length) return vscode.window.showErrorMessage("please ensure is pageid exits")
-                        let items = []
+                        let items = [];
                         datas.forEach(function(one){
                             items.push({
                                 label:one.path,
