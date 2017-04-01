@@ -1,11 +1,12 @@
 import * as vscode from 'vscode';
-import * as wikiFactory from 'parsewiki';
+import wikiFactory from '../parsewiki/index'
+
 
 export function activate(context: vscode.ExtensionContext) {
     let wikiparse = vscode.commands.registerCommand('extension.wikiparse', () => {
 
         let wikiconfig = vscode.workspace.getConfiguration('wiki');
-        if (!wikiconfig.username || !wikiconfig.password || !wikiconfig.mainUrl) {
+        if (!wikiconfig.userName || !wikiconfig.passWord || !wikiconfig.pageUrl) {
             return vscode.window.showErrorMessage("please config first")
         }
         let options: vscode.InputBoxOptions = {
@@ -20,17 +21,17 @@ export function activate(context: vscode.ExtensionContext) {
             if (res) {
                 const configData = {
                     pageId:res,
-                    username:wikiconfig.username,
-                    password:wikiconfig.password,
-                    mainUrl:wikiconfig.mainUrl,
+                    username:wikiconfig.userName,
+                    password:wikiconfig.passWord,
+                    mainUrl:wikiconfig.pageUrl,
                     mockPath:wikiconfig.mockPath,
                     ftlPre:wikiconfig.ftlPre,
                     tddPre:wikiconfig.tddPre,
                     rootPath:rootpath
                 } 
                 const WIKI = new wikiFactory(configData)
-                WIKI.login().then(()=>{
-                    WIKI.getPaths().then(datas=>{
+                WIKI.login().then((loginres)=>{
+                    WIKI.getPaths().then((datas:any)=>{
                         if(!datas.length) return vscode.window.showErrorMessage("please ensure is pageid exits")
                         let items = [];
                         datas.forEach(function(one){
@@ -41,12 +42,12 @@ export function activate(context: vscode.ExtensionContext) {
                             })
                         })
                         vscode.window.showQuickPick(items,{ placeHolder: "select item which you want parse", matchOnDescription: true }).then((item)=>{
-                            WIKI.getDetail(item.index).then((result)=>{
+                            WIKI.getDetail(item.index).then((result:any)=>{
                                 vscode.window.showInformationMessage(`文件${item.label}创建成功`,{
                                     "title":"查看"
                                 }).then(res=>{
                                     if(res.title=="查看") {
-                                        vscode.workspace.openTextDocument(result).then((a: vscode.TextDocument) => {
+                                        vscode.workspace.openTextDocument(result.filePath).then((a: vscode.TextDocument) => {
                                             vscode.window.showTextDocument(a, vscode.ViewColumn.One, true)
                                         })
                                     }

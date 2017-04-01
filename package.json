@@ -2,7 +2,7 @@
   "name": "wiki",
   "displayName": "wiki",
   "description": "parse wiki from web and create mock file",
-  "version": "0.1.0",
+  "version": "0.1.5",
   "publisher": "hzwuxinhan",
   "engines": {
     "vscode": "^1.10.0"
@@ -27,15 +27,15 @@
     ],
     "configuration": {
       "properties": {
-        "wiki.password": {
+        "wiki.passWord": {
           "type": "string",
           "description": "password for wiki"
         },
-        "wiki.username": {
+        "wiki.userName": {
           "type": "string",
           "description": "username for wiki"
         },
-        "wiki.mainUrl": {
+        "wiki.pageUrl": {
           "type": "string",
           "description": "domain of wiki like:https://test.wiki.com"
         },
@@ -66,15 +66,16 @@
     "vscode": "^1.0.0",
     "mocha": "^2.3.3",
     "@types/node": "^6.0.40",
-    "@types/mocha": "^2.2.32",
-    "cheerio": "^0.22.0",
-    "request": "^2.79.0",
-    "parsewiki": "^1.1.5"
+    "@types/mocha": "^2.2.32"
   },
   "icon": "icon.png",
   "dependencies": {
+    "@types/node": "^6.0.63",
+    "babel-runtime": "^6.23.0",
     "cheerio": "^0.22.0",
     "request": "^2.79.0",
-    "parsewiki": "^1.1.5"
+    "request-promise-native": "^1.0.3",
+    "sync-exec": "^0.6.2",
+    "vscode": "^1.0.3"
   }
 }
