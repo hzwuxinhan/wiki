@@ -9,10 +9,15 @@ export function activate(context: vscode.ExtensionContext) {
         if (!wikiconfig.userName || !wikiconfig.passWord || !wikiconfig.pageUrl) {
             return vscode.window.showErrorMessage("please config first")
         }
-        if(!wikiconfig.passWord.test(/pwd:.*/)) {
-            let b = "pwd:"+btoa(wikiconfig.passWord);
-            wikiconfig.update("passWord",b)
+        let useringPwd = wikiconfig.passWord
+        if(!/wiki\-pwd:.*/.test(useringPwd)) {
+            let b = "wiki-pwd:"+new Buffer(useringPwd).toString('base64');
+            wikiconfig.update("passWord",b,true)
+        }else{
+            useringPwd = useringPwd.replace("wiki-pwd:","");
+            useringPwd = new Buffer(useringPwd,"base64").toString()
         }
+
         let options: vscode.InputBoxOptions = {
             ignoreFocusOut: true,
             placeHolder: "Enter the pageid which you want parsed",
@@ -26,7 +31,7 @@ export function activate(context: vscode.ExtensionContext) {
                 const configData = {
                     pageId:res,
                     username:wikiconfig.userName,
-                    password:wikiconfig.passWord,
+                    password:useringPwd,
                     mainUrl:wikiconfig.pageUrl,
                     mockPath:wikiconfig.mockPath,
                     ftlPre:wikiconfig.ftlPre,

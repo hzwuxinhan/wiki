@@ -2,7 +2,7 @@
   "name": "wiki",
   "displayName": "wiki",
   "description": "parse wiki from web and create mock file",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "publisher": "hzwuxinhan",
   "engines": {
     "vscode": "^1.10.0"
@@ -18,13 +18,25 @@
     "commands": [
       {
         "command": "extension.wikiparse",
-        "title": "wiki: parse"
+        "title": "wiki: parse "
       },
       {
         "command": "extension.wikiconfig",
-        "title": "wiki: config"
+        "title": "wiki: config 配置wiki"
       }
     ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "extension.wikiparse",
+          "group": "myGroup@1"
+        },
+        {
+          "command": "extension.wikiconfig",
+          "group": "myGroup@1"
+        }
+      ]
+    },
     "configuration": {
       "properties": {
         "wiki.passWord": {
