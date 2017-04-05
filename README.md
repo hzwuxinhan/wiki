@@ -28,7 +28,7 @@
 
 1. mockPath(mock数据路径，默认为：src/test/mock)
 2. ftlPre(wiki中定义的ftl文件前缀，默认为：src/main/webapp/WEB-INF/tmpl)
-3. tddPre(tdd文件路径，默认为：src/test/tdd)
+3. tddPre(tdd文件路径，默认为：src/test/mock/tdd)
     
 
 ##update

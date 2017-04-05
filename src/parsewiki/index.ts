@@ -17,7 +17,7 @@ export default class parseWiki {
         this.rootPath = config.rootPath;
         this.mockPath = config.mockPath?config.mockPath:"src/test/mock"
         this.ftlPre = config.ftlPre?config.ftlPre:'src/main/webapp/WEB-INF/tmpl'
-        this.tddPre = config.tddPre?config.tddPre:'src/test/tdd'
+        this.tddPre = config.tddPre?config.tddPre:'src/test/mock/tdd'
         this.wikiReptile = new WikiReptile (config.username,config.password,config.pageId,config.mainUrl)
     }
 

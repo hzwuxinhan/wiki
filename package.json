@@ -2,7 +2,7 @@
   "name": "wiki",
   "displayName": "wiki",
   "description": "parse wiki from web and create mock file",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "publisher": "hzwuxinhan",
   "engines": {
     "vscode": "^1.10.0"
@@ -61,7 +61,7 @@
         },
         "wiki.tddPre": {
           "type": "string",
-          "description": "prefix of tdd in wiki, has default value:\"src/test/tdd\""
+          "description": "prefix of tdd in wiki, has default value:\"src/test/mock/tdd\""
         }
       },
       "title": "wiki Configuration Settings"
