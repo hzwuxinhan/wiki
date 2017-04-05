@@ -9,6 +9,10 @@ export function activate(context: vscode.ExtensionContext) {
         if (!wikiconfig.userName || !wikiconfig.passWord || !wikiconfig.pageUrl) {
             return vscode.window.showErrorMessage("please config first")
         }
+        if(!wikiconfig.passWord.test(/pwd:.*/)) {
+            let b = "pwd:"+btoa(wikiconfig.passWord);
+            wikiconfig.update("passWord",b)
+        }
         let options: vscode.InputBoxOptions = {
             ignoreFocusOut: true,
             placeHolder: "Enter the pageid which you want parsed",
