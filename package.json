@@ -2,7 +2,7 @@
   "name": "wiki",
   "displayName": "wiki",
   "description": "parse wiki from web and create mock file",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "publisher": "hzwuxinhan",
   "engines": {
     "vscode": "^1.10.0"

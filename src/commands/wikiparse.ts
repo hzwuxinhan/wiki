@@ -42,7 +42,11 @@ export function activate(context: vscode.ExtensionContext) {
                 WIKI.login().then((loginres)=>{
                     WIKI.getPaths().then((datas:any)=>{
                         if(!datas.length) return vscode.window.showErrorMessage("please ensure is pageid exits")
-                        let items = [];
+                        let items = [{
+                            label:"全部",
+                            description:"",
+                            index:"all"
+                        }];
                         datas.forEach(function(one){
                             items.push({
                                 label:one.path,
@@ -51,19 +55,14 @@ export function activate(context: vscode.ExtensionContext) {
                             })
                         })
                         vscode.window.showQuickPick(items,{ placeHolder: "select item which you want parse", matchOnDescription: true }).then((item)=>{
-                            WIKI.getDetail(item.index).then((result:any)=>{
-                                vscode.window.showInformationMessage(`文件${item.label}创建成功`,{
-                                    "title":"查看"
-                                }).then(res=>{
-                                    if(res.title=="查看") {
-                                        vscode.workspace.openTextDocument(result.filePath).then((a: vscode.TextDocument) => {
-                                            vscode.window.showTextDocument(a, vscode.ViewColumn.One, true)
-                                        })
-                                    }
-                                })
-                            },(e)=>{
-                                console.log(e)
-                            })
+                            if(item.index == "all") {
+                                for(let i=1;i<items.length;i++) {
+                                    getOneDetail(WIKI,items[i])
+                                }
+                            }else {
+                                getOneDetail(WIKI,item)
+                            }
+                            
                         },(e)=>{
                             
                         })
@@ -79,6 +78,22 @@ export function activate(context: vscode.ExtensionContext) {
         })
 
     });
+
+    function getOneDetail(WIKI,item) {  
+        WIKI.getDetail(item.index).then((result:any)=>{
+            vscode.window.showInformationMessage(`文件${item.label}创建成功`,{
+                "title":"查看"
+            }).then(res=>{
+                if(res.title=="查看") {
+                    vscode.workspace.openTextDocument(result.filePath).then((a: vscode.TextDocument) => {
+                        vscode.window.showTextDocument(a, vscode.ViewColumn.One, true)
+                    })
+                }
+            })
+        },(e)=>{
+            console.log(e)
+        })
+    }
 
     context.subscriptions.push(wikiparse);
 }
